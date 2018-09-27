@@ -23,8 +23,8 @@ public class MemberServiceTest {
     @Autowired
     MemberService memberService;
 
-    public UUID memberOneId = UUID.randomUUID();
-    public UUID memberTwoId = UUID.randomUUID();
+    public String  memberOneId = UUID.randomUUID().toString();
+    public String memberTwoId = UUID.randomUUID().toString();
     public String memberOneFirstName = "Bharat";
     public String memberOneLastName = "Satija";
     public String memberTwoFirstName = "Ankit";

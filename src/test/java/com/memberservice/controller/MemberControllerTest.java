@@ -36,8 +36,8 @@ public class MemberControllerTest {
     MemberService memberService;
 
 
-    public UUID memberOneId = UUID.randomUUID();
-    public UUID memberTwoId = UUID.randomUUID();
+    public String memberOneId = UUID.randomUUID().toString();
+    public String memberTwoId = UUID.randomUUID().toString();
     public String memberOneFirstName = "Bharat";
     public String memberOneLastName = "Satija";
     public String memberTwoFirstName = "Ankit";
@@ -95,7 +95,7 @@ public class MemberControllerTest {
     public void testGetMemberApi() throws Exception {
         setUp();
 
-        mockMvc.perform(get("/api/members/" + memberOneId.toString())
+        mockMvc.perform(get("/api/members/" + memberOneId)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
 
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -103,7 +103,7 @@ public class MemberControllerTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.firstName").exists())
                 .andExpect(jsonPath("$.lastName").exists())
-                .andExpect(jsonPath("$.id").value(memberOneId.toString()))
+                .andExpect(jsonPath("$.id").value(memberOneId))
                 .andExpect(jsonPath("$.firstName").value(memberOneFirstName))
                 .andExpect(jsonPath("$.lastName").value(memberOneLastName));
     }
@@ -134,7 +134,7 @@ public class MemberControllerTest {
         String json = "{\"firstName\" : \""+memberThreeFirstName+"\", \"lastName\" : \""+memberThreeLastName+"\", " +
                 "\"dateOfBirth\" : \"1992-03-26\", \"postalCode\" : \"13359\" }";
 
-        mockMvc.perform(put("/api/members/"+memberOneId.toString())
+        mockMvc.perform(put("/api/members/"+memberOneId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -142,7 +142,7 @@ public class MemberControllerTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.firstName").exists())
                 .andExpect(jsonPath("$.lastName").exists())
-                .andExpect(jsonPath("$.id").value(memberOneId.toString()))
+                .andExpect(jsonPath("$.id").value(memberOneId))
                 .andExpect(jsonPath("$.firstName").value(memberThreeFirstName))
                 .andExpect(jsonPath("$.lastName").value(memberThreeLastName));
     }
@@ -164,7 +164,7 @@ public class MemberControllerTest {
     public void testDeleteMemberApi() throws Exception {
         setUp();
 
-        mockMvc.perform(delete("/api/members/" + memberOneId.toString())
+        mockMvc.perform(delete("/api/members/" + memberOneId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }

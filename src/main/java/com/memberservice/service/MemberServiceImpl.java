@@ -10,19 +10,19 @@ import java.util.stream.Collectors;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private final Map<UUID, Member> memberRepository = new ConcurrentHashMap<>();
+    private final Map<String, Member> memberRepository = new ConcurrentHashMap<>();
 
     public Member save(Member member) {
         memberRepository.put(member.getId(), member);
         return member;
     }
 
-    public Optional<Member> findById(UUID uuid) {
-        return Optional.ofNullable(memberRepository.get(uuid));
+    public Optional<Member> findById(String id) {
+        return Optional.ofNullable(memberRepository.get(id));
     }
 
-    public Member deleteMember(UUID uuid){
-        return memberRepository.remove(uuid);
+    public Member deleteMember(String id){
+        return memberRepository.remove(id);
     }
 
     public List<Member> findAll(){

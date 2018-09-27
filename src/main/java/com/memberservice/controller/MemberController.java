@@ -30,8 +30,7 @@ public class MemberController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> createMember(@RequestBody Member member){
 
-        UUID id = UUID.randomUUID();
-        member.setId(id);
+        member.setId(UUID.randomUUID().toString());
         Member savedMember = memberService.save(member);
 
         URI location = ServletUriComponentsBuilder
@@ -47,7 +46,7 @@ public class MemberController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> getMember(@NotNull @PathVariable(value = "memberId") String memberId){
 
-        Optional<Member> member = memberService.findById(UUID.fromString(memberId));
+        Optional<Member> member = memberService.findById(memberId);
         if(member.isPresent())
             return ResponseEntity.ok(member);
 
@@ -70,7 +69,7 @@ public class MemberController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> updateMember(@NotNull @PathVariable(value = "memberId") String memberId, @RequestBody Member member){
 
-        Optional<Member> existingMember = memberService.findById(UUID.fromString(memberId));
+        Optional<Member> existingMember = memberService.findById(memberId);
         return existingMember.map(m -> {
             m.updateMemberDetails(member);
             Member updatedMember = memberService.save(m);
@@ -85,12 +84,10 @@ public class MemberController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> deleteMember(@NotNull @PathVariable(value = "memberId") String memberId){
 
-        UUID uuid = UUID.fromString(memberId);
-
-        if(memberService.deleteMember(uuid) == null)
+        if(memberService.deleteMember(memberId) == null)
             return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
 

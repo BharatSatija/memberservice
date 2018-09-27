@@ -2,6 +2,8 @@ package com.memberservice.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,16 +16,17 @@ import java.util.UUID;
 public class Member {
 
 
-    private UUID id;
+    private String id;
     private String firstName;
     private String lastName;
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
     private String postalCode;
 
 
 
-    public Member(UUID id, String firstName, String lastName, LocalDate dateOfBirth, String postalCode) {
+    public Member(String  id, String firstName, String lastName, LocalDate dateOfBirth, String postalCode) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

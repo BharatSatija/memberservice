@@ -8,9 +8,9 @@ public interface MemberService {
 
     Member save(Member member);
 
-    Optional<Member> findById(UUID uuid);
+    Optional<Member> findById(String id);
 
-    Member deleteMember(UUID uuid);
+    Member deleteMember(String id);
 
     List<Member> findAll();
 }
